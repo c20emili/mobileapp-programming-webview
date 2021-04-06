@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         /*
         * Rename your App. Tip: Values->Strings
         * Enable Internet access for your App. Tip: Manifest
