@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Mjörns Hobbyklubb</title>
+    <!-- hammer bibliotek -->
+    <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+    <!-- shaker bibliotek -->
+    <script src="https://raw.githack.com/HGustavs/Shaker.js/master/shaker.js"></script>
+    <!-- bootstrap css och bibliotek -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+            integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous">
+    </script>
+    <script>
+        var swipeBildTotal;
+        var mittBild = 1;
+        // startvärden och aktivering av bas funktioner
+        function startApp(){
+            allaSidor = document.getElementsByClassName("sida"); //alla element med klassen sida samlas i en array med namn allaSidor
+            for (let i = 0; i < allaSidor.length; i++) { //loop som döljer alla sidor
+            let sidPlats = allaSidor[i];
+            sidPlats.style.display = "none";
+            }
+            document.getElementById("sida1").style.display = "block";
+
+            shaker.on("shake",function(){
+                    Tema();
+            });
+
+            swipeBildTotal = document.getElementsByClassName('underGalleriBild').length;
+            var helaGalleriBox = document.getElementById("helaGalleri");
+            var fiskSwipe = Hammer(helaGalleriBox).on("swiperight", function (event) { swipe(-1) });
+
+            var helaGalleriBox = document.getElementById("helaGalleri");
+            var fiskSwipe = Hammer(helaGalleriBox).on("swipeleft", function (event) { swipe(1) });
+            // kompass delar
+            shaker.on("tilt", function (gyro) {
+                var Grad = gyro.alpha;
+                document.getElementById("nal").style.transform='rotate(' + Grad + 'deg)';
+                var G= Grad;
+                if(G < 0){
+                    G += 360;
+                }
+                if(G <= 22 || G >= 338){
+                document.getElementById("grader").innerHTML = "Norr";
+                }
+                else if(G <= 67){
+                document.getElementById("grader").innerHTML = "NordOst";
+                }
+                else if(G <= 112){
+                document.getElementById("grader").innerHTML = "Öster";
+                }
+                else if(G <= 157){
+                document.getElementById("grader").innerHTML = "SydOst";
+                }
+                else if(G <= 202){
+                document.getElementById("grader").innerHTML = "Söder";
+                }
+                else if(G <= 247){
+                document.getElementById("grader").innerHTML = "SydVäst";
+                }
+                else if(G <= 292){
+                document.getElementById("grader").innerHTML = "Väst";
+                }
+                else if(G <= 337){
+                document.getElementById("grader").innerHTML = "NordVäst";
+                }
+            });
+            //alla öar
+            var omrade = document.getElementById("island1");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck1").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck1").style.display="none";
+            });
+            var omrade = document.getElementById("island2");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck2").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck2").style.display="none";
+            });
+            var omrade = document.getElementById("island3");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck3").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck3").style.display="none";
+            });
+            var omrade = document.getElementById("island4");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck4").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck4").style.display="none";
+            });
+
+            //alla punkter
+            var omrade = document.getElementById("punkt1");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck5").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck5").style.display="none";
+            });
+            var omrade = document.getElementById("punkt2");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck6").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck6").style.display="none";
+            });
+            var omrade = document.getElementById("punkt3");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck7").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck7").style.display="none";
+            });
+            var omrade = document.getElementById("punkt4");
+            var tryck = Hammer(omrade);
+            tryck.on("press", function(event) {
+            document.getElementById("tryck8").style.display="block";
+            });
+            tryck.on("pressup", function(event) {
+            document.getElementById("tryck8").style.display="none";
+            });
+        }
+        // För att byta mellan sidor
+        function visaSida(nr){
+            document.getElementById("startButton").style.display = "none";
+            allaSidor = document.getElementsByClassName("sida"); //alla element med klassen sida samlas i en array med namn allaSidor
+            for (let i = 0; i < allaSidor.length; i++) { //loop som döljer alla sidor
+            let sidPlats = allaSidor[i];
+            sidPlats.style.display = "none";
+            }
+            document.getElementById("sida"+nr).style.display = "block";// visar sidan vars nummer skickats in
+            // för att inaktivera alla navknappar
+            allaNav= document.getElementsByClassName("navKnapp");
+            for (let j = 0; j < allaNav.length; j++) {
+            let navPlats = allaNav[j];
+            navPlats.classList.remove("aktiv");
+            }
+            document.getElementById("nav"+nr).classList.add("aktiv");
+        }
+        // Funktion för olika teman
+        function Tema(){
+            if(document.body.className == "M") { //kollar om det är mörkt tema
+                morkArr = document.getElementsByClassName("M"); // samlar alla med klassen M i en array
+                for (let i = 0; i < morkArr.length; i++) { //kör för varje element med klassen
+                    let mork = morkArr[i]; //mork blir elementet på plats "antal upprepningar" i arrayen morkArr
+                    mork.classList.add("L"); // ge elementet klassen Ljus
+                    mork.classList.remove("M"); // ta bort klassen Mork
+                }
+                document.getElementById("temaSvg").style.mask = "url(#mane)";
+                document.getElementById("navigering").classList.add("navbar-light");
+                document.getElementById("navigering").classList.remove("navbar-dark");
+            }
+            else {
+                ljusArr = document.getElementsByClassName("L"); // samlar alla med klassen L i en array
+                for (let i = 0; i < ljusArr.length; i++) { //kör för varje element med klassen
+                    let ljus = ljusArr[i]; //ljus blir elementet på plats "antal upprepningar" i arrayen ljusArr
+                    ljus.classList.add("M");// ge elementet klassen Mork
+                    ljus.classList.remove("L");// ta bort klassen Ljus
+                }
+                document.getElementById("temaSvg").style.mask = "url(#sol)";
+                document.getElementById("navigering").classList.add("navbar-dark");
+                document.getElementById("navigering").classList.remove("navbar-light");
+            }
+        }
+        // swipe galleriets funktioner
+        // typ alla delar som händer med mittbilden
+        function bytMitt(nyMittBild){
+            document.getElementById('toppBild' + mittBild).style.animation = "gammalTopp 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + mittBild).classList.remove("aktivBild");
+            document.getElementById('info' + mittBild).style.display = "none";
+            mittBild = nyMittBild;
+            document.getElementById('toppBild' + mittBild).style.animation = "nyTopp 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + mittBild).classList.add("aktivBild");
+            document.getElementById('info' + mittBild).style.display = "block";
+        }
+        //högerswep flyttning
+        function visaSwipeBildHoger(nyMittBild, nyRiktningMittBild, nyRiktningKantBild, nyMotsattRiktningMittBild, nyMotsattRiktningKantBild) {
+            document.getElementById('underGalleriBild' + nyRiktningKantBild).style.animation = "UTillV 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyRiktningMittBild).style.animation = "VTillCV 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyMittBild).style.animation = "CVTillC 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + mittBild).style.animation = "CTillCH 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyMotsattRiktningMittBild).style.animation = "CHTillH 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyMotsattRiktningKantBild).style.animation = "HTillU 1s ease-in-out 0s 1 forwards";
+            bytMitt(nyMittBild);
+
+        }
+        //vänsterswep flyttning
+        function visaSwipeBildVanster(nyMittBild, nyRiktningMittBild, nyRiktningKantBild, nyMotsattRiktningMittBild, nyMotsattRiktningKantBild) {
+            document.getElementById('underGalleriBild' + nyRiktningKantBild).style.animation = "UTillH 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyRiktningMittBild).style.animation = "HTillCH 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyMittBild).style.animation = "CHTillC 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + mittBild).style.animation = "CTillCV 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyMotsattRiktningMittBild).style.animation = "CVTillV 1s ease-in-out 0s 1 forwards";
+            document.getElementById('underGalleriBild' + nyMotsattRiktningKantBild).style.animation = "VTillU 1s ease-in-out 0s 1 forwards";
+            bytMitt(nyMittBild);
+        }
+        // funktion som räknar ut vilken sida som är var
+        function swipe(riktning) {
+            var nyRiktningKantBild = mittBild + 3 * riktning;
+            var nyRiktningMittBild = mittBild + 2 * riktning;
+            var nyMittBild = mittBild + riktning;
+            var nyMotsattRiktningMittBild = mittBild - riktning;
+            var nyMotsattRiktningKantBild = mittBild - 2 * riktning;
+
+            // Calculate if pages need to wrap arround at the edges.
+            nyMittBild = wrapArround(nyMittBild, swipeBildTotal);
+            nyRiktningMittBild = wrapArround(nyRiktningMittBild, swipeBildTotal);
+            nyRiktningKantBild = wrapArround(nyRiktningKantBild, swipeBildTotal);
+            nyMotsattRiktningMittBild = wrapArround(nyMotsattRiktningMittBild, swipeBildTotal);
+            nyMotsattRiktningKantBild = wrapArround(nyMotsattRiktningKantBild, swipeBildTotal);
+
+            if (riktning == 1) {
+                visaSwipeBildVanster(nyMittBild, nyRiktningMittBild, nyRiktningKantBild, nyMotsattRiktningMittBild, nyMotsattRiktningKantBild);
+            }
+            else {
+                visaSwipeBildHoger(nyMittBild, nyRiktningMittBild, nyRiktningKantBild, nyMotsattRiktningMittBild, nyMotsattRiktningKantBild);
+            }
+        }
+        // för att byta till bilden som överstämmer med bilden som klickats på
+        function visaBild(bildNr){
+            var diff = 0;
+            if (bildNr <= 2 && mittBild >= 5){
+                diff = (6-(mittBild-bildNr));
+            }
+            else if (bildNr >= 5 && mittBild <= 2){
+                diff = -(6-(bildNr-mittBild));
+            }
+            else if (bildNr < mittBild) {
+                diff = -(mittBild-bildNr);
+            }
+            else if (bildNr > mittBild) {
+                diff = (bildNr-mittBild);
+            }
+            if(diff < 0){
+                for(let i=0; i>diff; i--){
+                    swipe(-1);
+                }
+            }
+            else if(diff > 0){
+                for(let i=0; i<diff; i++){
+                    swipe(1);
+                }
+            }
+        }
+        // för att bilderna skall loopa
+        function wrapArround(value, length) {
+            if (value <= 0) {
+                value += length;
+            }
+            else if (value > length) {
+                value -= length;
+            }
+            return value;
+        }
+
+    </script>
+
+    <style>
+        /* fonter */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@200;300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+        *{
+            font-family: 'Lato', sans-serif;
+        }
+        /* Generell styling*/
+        body{
+            margin: 0%;
+            padding: 0%;
+        }
+        h1,h2,h3{
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+        }
+        .papper{
+            margin-top: 2vw;
+            margin-bottom: 75px;
+            padding: 2vw;
+            box-shadow: 0px 0px 15px #000000;
+        }
+        .card{
+            box-shadow: 0px 0px 5px #000000;
+        }
+        /* Tema styling / Färger */
+        /* ljust tema */
+        .L{
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+        .L .aktiv{
+            color: #FFFFFF;
+        }
+        .L .primary{
+            background-color: #6495ED;
+        }
+        .L .secondary{
+            background-color:#644905;
+        }
+        .L .secondarySVG{
+            fill:#644905;
+        }
+        .L button{
+            color: #000000;
+        }
+        .L .papper{
+            background-color: #DDDDDD;
+        }
+        .L .underGalleriBild{
+            border: 5px solid #666666;
+        }
+        .L .aktivBild{
+            border-color: #222222;
+        }
+        /* mörkt tema */
+        .M{
+            background-color: #303030;
+            color: #FFFFFF;
+        }
+        .M .aktiv{
+            color: #222222;
+        }
+        .M .primary{
+            background-color: #4455AD;
+        }
+        .M button{
+            color: #FFFFFF;
+        }
+        .M .secondary{
+            background-color: #BDB76B;
+        }
+        .M .secondarySVG{
+            fill: #BDB76B;
+        }
+        .M .papper{
+            background-color: #444444;
+        }
+        .M .card{
+            background-color: #444444;
+        }
+        .M .underGalleriBild{
+            border: 5px solid #AAAAAA;
+        }
+        .M .aktivBild{
+            border-color: #DDDDDD;
+        }
+        /* Startknappens styling */
+        #startButton{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #44444444;
+            color:#ffffff;
+            font-size: 80px;
+            z-index: 1100;
+        }
+        /* Navigerings styling */
+        .navbar{
+            box-shadow: 0px 5px 5px #444444;
+            width: 100vw;
+        }
+        .navbar li button{
+            width: 100%;
+        }
+        /* Botten styling */
+        #bottom {
+            position: fixed;
+            box-shadow: 0px -5px 5px #444444;
+            margin: 0%;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            z-index: 1000;
+        }
+        /* Temaknapp SVG styling */
+        .sne{
+            transform: rotate(45deg);
+        }
+        /* styling för sjökort och kompass */
+        #helaKartan{
+            position: relative;
+            box-shadow: 0px 0px 20px #000000;
+        }
+        /* kompass styling */
+        #norrPek{
+            transform: rotate(180deg);
+        }
+        #kompass{
+            transform: translate(-500px,-500px);
+        }
+        #N{
+            position: absolute;
+            top:6%;
+            left:23%;
+            color: #FF3333;
+        }
+        #grader{
+            position: absolute;
+            top:38%;
+            left:13%;
+            right: 63%;
+            background-color: #44444444;
+            text-align: center;
+        }
+        /* styling för punkterna av intresse */
+        .punkt{
+            fill: crimson;
+        }
+        #punkt1{
+            transform: translate(-225px,0px);
+        }
+        #punkt2{
+            transform: translate(725px,0px);
+        }
+        #punkt3{
+            transform: translate(450px,-325px);
+        }
+        #punkt4{
+            transform: translate(810px,-675px);
+        }
+        /* styling för positionerng av "öarna" */
+        .island{
+            fill: #337744;
+        }
+        #island1 {
+            transform: translate(350px,0px);
+        }
+        #island2 {
+            transform: translate(250px,-600px);
+        }
+        #island3 {
+            transform: translate(-300px,300px);
+        }
+        #island4 {
+            transform: translate(300px,250px);
+        }
+        /* flyttar på sjön så den är mer centrerad */
+        #sjo{
+            transform: translate(-100px,100px);
+        }
+        /* styling och placering av alla namn som kommer när man trycker */
+        .tryckBox{
+            position: absolute;
+            background-color: #CCCCCC44;
+            padding: 1%;
+            display: none;
+            border-radius: 15px;
+        }
+        #tryck1{
+            top:45%;
+            left:56%;
+
+        }
+        #tryck2{
+            top:15%;
+            left:50%;
+        }
+        #tryck3{
+            top:57%;
+            left:23%;
+        }
+        #tryck4{
+            top:54%;
+            left:48%;
+        }
+        #tryck5{
+            top:46%;
+            left:40%;
+        }
+        #tryck6{
+            top:46%;
+            left:50%;
+        }
+        #tryck7{
+            top:30%;
+            left:45%;
+        }
+        #tryck8{
+            top:12%;
+            left:35%;
+        }
+        /* Fiskgalleri styling */
+        /* yttersta galleriboxen */
+        #helaGalleri{
+            background-color: #00336699;
+            position: relative;
+            width: 75vw;
+            height: 50vw;
+            padding: 0%;
+            overflow: hidden;
+            box-shadow: 0px 0px 10px #000000;
+        }
+        /* varje fisk skall centreras*/
+        .gos{
+            margin-top:8%;
+            margin-left:3%;
+            width: 90%;
+        }
+        .aborre{
+            margin-top:5%;
+            width: 90%;
+        }
+        .mort{
+            margin-top:5%;
+            margin-left:1%;
+            width: 90%;
+        }
+        .gadda{
+            margin-top:16%;
+            width: 90%;
+        }
+        .braxen{
+            margin-top:3%;
+            width: 90%;
+        }
+        .lake{
+            margin-top:5%;
+            margin-left:1%;
+            width: 90%;
+        }
+        /* Stor bild styling */
+        .toppBilder{
+            position: absolute;
+            width: 80vw;
+            height: 60vw;
+            opacity: 0;
+            padding:0%;
+        }
+        .toppFisk{
+            position: absolute;
+            top: 0;
+        }
+        #galleriTopp{
+            position: absolute;
+            top: 0%;
+        }
+        #toppBild1{
+            opacity: 1;
+        }
+        /* undergalleri styling*/
+        .aktivBild{
+            z-index: 501;
+        }
+        #underGalleriBild1{
+            left:40%;
+        }
+        #underGalleriBild2{
+            left:60%;
+        }
+        #underGalleriBild3{
+            left:80%;
+        }
+        #underGalleriBild4{
+            left:100%;
+        }
+        #underGalleriBild5{
+            left:0%;
+        }
+        #underGalleriBild6{
+            left:20%;
+        }
+        .underGalleriBild{
+            position:absolute;
+            left:0%;
+            top:0%;
+            width:20%;
+            height:10vw;
+            z-index:500;
+        }
+        #underGalleri{
+            position: absolute;
+            top:80%;
+            width:100%;
+            height: 20px;
+        }
+        .underFisk{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        /* Slide animationer */
+        /* Vänster till höger animationer */
+        @keyframes UTillV {
+                0% { left: -20%; }
+                100% { left: 0;}
+        }
+        @keyframes VTillCV {
+            0% { left: 0%; }
+            100% { left:  20%;}
+        }
+        @keyframes CVTillC {
+            0% { left: 20%; }
+            100% { left: 40%;}
+        }
+        @keyframes CTillCH {
+            0% { left: 40%; }
+            100% { left: 60%;}
+        }
+        @keyframes CHTillH {
+            0% { left: 60%; }
+            100% { left: 80%;}
+        }
+        @keyframes HTillU {
+            0% { left: 80%; }
+            100% { left: 100%;}
+        }
+        /* Höger till vänster animationer */
+        @keyframes UTillH {
+            0% { left: 100%; }
+            100% { left: 80%;}
+        }
+        @keyframes HTillCH {
+            0% { left: 80%; }
+            100% { left:  60%;}
+        }
+        @keyframes CHTillC {
+            0% { left: 60%; }
+            100% { left: 40%;}
+        }
+        @keyframes CTillCV {
+            0% { left: 40%; }
+            100% { left: 20%;}
+        }
+        @keyframes CVTillV {
+            0% { left: 20%; }
+            100% { left: 0%;}
+        }
+        @keyframes VTillU {
+            0% { left: 0%; }
+            100% { left: -20%;}
+        }
+        /* Toppbildens animationer */
+        @keyframes nyTopp {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes gammalTopp {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        /* info styling */
+        .infoBox{
+            display: none;
+        }
+        #info1{
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="L" onload="startApp();">
+<button id="startButton" onclick="visaSida(1)">Klicka på skärmen</button>
+<nav id="navigering" class="navbar navbar-expand-lg navbar-light primary">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand" onclick="visaSida(1);">Mjörns Hobbyklubb</a>
+        <button class="navbar-toggler secondary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-1 mt-2">
+                <li class="nav-item">
+                    <button id="nav1" class="navKnapp btn btn-block aktiv" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" onclick="visaSida(1)">Start</button>
+                </li>
+                <li class="nav-item">
+                    <button id="nav2" class="navKnapp btn btn-block" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" onclick="visaSida(2)">Sjökort och kompass</button>
+                </li>
+                <li class="nav-item">
+                    <button id="nav3" class="navKnapp btn btn-block" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"  onclick="visaSida(3)">Mjörn's Fiskar</button>
+                </li>
+                <li class="nav-item">
+                    <button id="nav4" class="navKnapp btn btn-block" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"  onclick="visaSida(4)">Binda fluga</button>
+                </li>
+                <li class="nav-item">
+                    <button id="nav5" class="navKnapp btn btn-block" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"  onclick="visaSida(5)">Licensinformation</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="sida1" class="sida container-fluid">
+    <div class="container papper">
+        <div class="row">
+            <div class="col-12">
+                <h1>Start</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem.
+                    Donec quis molestie sapien, nec tincidunt sem. Quisque et sapien quis magna maximus sagittis. Donec vehicula maximus sollicitudin. Nunc tincidunt magna vel blandit faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aliquam a justo elit. Suspendisse fermentum odio gravida semper vulputate. Praesent a risus quis purus facilisis venenatis. Sed auctor turpis sed quam dapibus maximus. Donec rutrum metus ac quam faucibus rhoncus. Integer blandit vitae diam ut lobortis. Nullam rhoncus lacus a erat vehicula suscipit. Nam facilisis lacinia varius.
+                </p>
+                <p>Kontakta bosse gärna om du har några frågor via:</p>
+                <p>Tel. 0030-003000 eller E-post: mjörnshobbyklubbs@mail.se</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="sida2" class="sida container-fluid">
+    <div class="container papper">
+        <div class="row">
+            <div class="col-12">
+                <h1>Sjökort och kompass</h1>
+                <div id="helaKartan">
+                    <svg viewbox="-1000 -1000 2000 2000">
+                        <mask id="pekare">
+                            <path d="M -50,0 l 15,50 q 20,0 20,100 l 15,50 l 15,-50 q 0,-100 20,-100 l 15,-50 l -100,0" fill="#FFFFFF" />
+                            <path d="M -50,0 l 15,50 q 20,0 20,100 l 15,50 l 0,-200 l -100,0" fill="#CCCCCC" />
+                        </mask>
+                        <g id="sjokort">
+                            <rect x="-1000" y="-1000" width="2000" height="2000" fill="green" />
+                            <circle cx="0" cy="0" r="25" class="punkt" id="punkt1"/>
+                            <circle cx="0" cy="0" r="25" class="punkt" id="punkt2"/>
+                            <circle cx="0" cy="0" r="25" class="punkt" id="punkt3"/>
+                            <circle cx="0" cy="0" r="25" class="punkt" id="punkt4"/>
+                            <g id="sjo">
+                                <path d="M 800,0 Q 750,-300 775,-325
+                                    Q 800,-390 825,-375 Q 900,-340 925,-365
+                                    Q 1010,-700 1000,-715 Q 980,-800 950,-775
+                                    Q 920,-700 900,-725 Q 895,-750 875,-750
+                                    Q 730,-750 770,-600 Q 600,-490 625,-390
+                                    Q 515,-390 500,-370 Q 415,-220 400,-250
+                                    Q 320,-350 350,-400 Q 460,-445 450,-425
+                                    Q 400,-525 400,-575 Q 525,-800 525,-1000
+                                    L 505,-1000 Q 505,-900 475,-900
+                                    Q 350,-950 250,-925 Q 225,-900 200,-750
+                                    L 250,-700 L 150,-650
+                                    L 100,-450 Q 0,100 100,-200
+                                    L 0,-200 L 0,-225
+                                    L -50,-225 L -50,-75
+                                    L -100,-75 L -90,15
+                                    L -150,20 L -350,-50
+                                    L -350,5 L -380,15
+                                    L -425,15 L -425,125
+                                    L -525,135 L -525,250
+                                    L -500,250 L -450,300
+                                    L -475,325 L -525,275
+                                    L -550,450 L -450,450
+                                    L -450,500 L -650,500
+                                    L -650,650 Q -850,700 -750,800
+                                    Q -600,900 -450,700 Q -300,550 200,400
+                                    Q 450,350 450,300 Q 550,150 800,0" fill="#3377CC" id="mjorn"/>
+                                <circle cx="0" cy="0" r="50" class="island" id="island1"/>
+                                <circle cx="0" cy="0" r="50" class="island" id="island2"/>
+                                <circle cx="0" cy="0" r="100" class="island" id="island3"/>
+                                <circle cx="0" cy="0" r="75" class="island" id="island4"/>
+
+                            </g>
+                        </g>
+                        <g id="kompass" style="opacity: 1;">
+                            <circle cx="0" cy="0" r="225" fill="#444444"/>
+                            <circle cx="0" cy="0" r="200" fill="#DDDDAA"/>
+                            <g id="nal">
+                                <rect id="norrPek" x="-50" y="0" width="100" height="200" mask="url(#pekare)" fill="#AA0000"/>
+                                <rect id="soderPek" x="-50" y="0" width="100" height="200" mask="url(#pekare)" fill="#0000AA"/>
+                            </g>
+                            <circle cx="0" cy="0" r="25" fill="#AAAAAA"/>
+                        </g>
+                    </svg>
+                    <h2 id="N">N</h2>
+                    <h2 id="grader">Norr</h2>
+                    <div id="namnBoxar">
+                        <div class="tryckBox" id="tryck1">
+                            <h3>Fjärrö</h3>
+                        </div>
+                        <div class="tryckBox" id="tryck2">
+                            <h3>Arrigö</h3>
+                        </div>
+                        <div class="tryckBox" id="tryck3">
+                            <h3>Storön</h3>
+                        </div>
+                        <div class="tryckBox" id="tryck4">
+                            <h3>Trompson's Ö</h3>
+                        </div>
+                        <div class="tryckBox" id="tryck5">
+                            <h3>Mjörns båtsällskap</h3>
+                        </div>
+                        <div class="tryckBox" id="tryck6">
+                            <h3>Mjörns hobbyklubb</h3>
+                        </div>
+                        <div class="tryckBox" id="tryck7">
+                            <h3>Alles båtar</h3>
+                        </div>
+                        <div class="tryckBox" id="tryck8">
+                            <h3>Ångbåten herbets stuga</h3>
+                        </div>
+                    </div>
+                </div>
+                <h2>Tryck på öarna eller de röda prickarna för att få reda på deras namn</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="sida3" class="sida container-fluid">
+    <div class="container papper">
+        <div class="row">
+            <h1>Mjörn's Fiskar</h1>
+        </div>
+        <div class="row">
+            <div id="helaGalleri" class="mx-auto">
+                <div id="galleriTopp">
+                    <div id="toppBild1" class="toppBilder">
+                        <figure class="fisk">
+                            <img src="Bilder/65_cm_lange_snoekbaars_klippt.png" alt="bild på gös" class="toppFisk gos"/>
+                        </figure>
+                    </div>
+                    <div id="toppBild2" class="toppBilder">
+                        <figure  class="fisk">
+                            <img src="Bilder/Aborre_klippt.png" alt="bild på aborre" class="toppFisk aborre"/>
+                        </figure>
+                    </div>
+                    <div id="toppBild3" class="toppBilder">
+                        <figure  class="fisk">
+                            <img src="Bilder/6oz_Roach_best_of_the_day_klippt.png" alt="bild på mört" class="toppFisk mort"/>
+                        </figure>
+                    </div>
+                    <div id="toppBild4" class="toppBilder">
+                        <figure class="fisk">
+                            <img src="Bilder/Monsterpike_klippt.png" alt="bild på gädda" class="toppFisk gadda"/>
+                        </figure>
+                    </div>
+                    <div id="toppBild5" class="toppBilder">
+                        <figure class="fisk">
+                            <img src="Bilder/Fresh_Bream_klippt.png" alt="bild på braxen" class="toppFisk braxen"/>
+                        </figure>
+                    </div>
+                    <div id="toppBild6" class="toppBilder">
+                        <figure class="fisk">
+                            <img src="Bilder/burbot_klippt.png" alt="bild på lake" class="toppFisk lake"/>
+                        </figure>
+                    </div>
+                </div>
+                <div id="underGalleri">
+                    <div id="underGalleriBild1" class="underGalleriBild aktivBild" onclick="visaBild(1);">
+                        <figure class="fisk">
+                            <img src="Bilder/65_cm_lange_snoekbaars_klippt.png" alt="mindre bild på gös" class="underFisk gos">
+                        </figure>
+                    </div>
+                    <div id="underGalleriBild2" class="underGalleriBild" onclick="visaBild(2);">
+                        <figure class="fisk">
+                            <img src="Bilder/Aborre_klippt.png" alt="mindre bild på aborre" class="underFisk aborre">
+                        </figure>
+                    </div>
+                    <div id="underGalleriBild3" class="underGalleriBild" onclick="visaBild(3);">
+                        <figure class="fisk">
+                            <img src="Bilder/6oz_Roach_best_of_the_day_klippt.png" alt="mindre bild på mört" class="underFisk mort">
+                        </figure>
+                    </div>
+                    <div id="underGalleriBild4" class="underGalleriBild" onclick="visaBild(4);">
+                        <figure class="fisk">
+                            <img src="Bilder/Monsterpike_klippt.png" alt="mindre bild på gädda" class="underFisk gadda">
+                        </figure>
+                    </div>
+                    <div id="underGalleriBild5" class="underGalleriBild" onclick="visaBild(5);">
+                        <figure class="fisk">
+                            <img src="Bilder/Fresh_Bream_klippt.png" alt="mindre bild på braxen" class="underFisk braxen">
+                        </figure>
+                    </div>
+                    <div id="underGalleriBild6" class="underGalleriBild" onclick="visaBild(6);">
+                        <figure class="fisk">
+                            <img src="Bilder/burbot_klippt.png" alt="mindre bild på lake" class="underFisk lake">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <p id="landscapeText">Klicka på den undre bilden eller swipa övre bilden höger/vänster för att byta fisk</p>
+            <div id="infoBoxar" class="row">
+                <div id="info1" class="infoBox">
+                    <h2>Gös</h2>
+                    <p>Text om gös Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem.</p>
+                </div>
+                <div id="info2" class="infoBox">
+                    <h2>Aborre</h2>
+                    <p>Text om aborre Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem.</p>
+                </div>
+                <div id="info3" class="infoBox">
+                    <h2>Mört</h2>
+                    <p>Text om mört Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem.</p>
+                </div>
+                <div id="info4" class="infoBox">
+                    <h2>Gädda</h2>
+                    <p>Text om gädda Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem.</p>
+                </div>
+                <div id="info5" class="infoBox">
+                    <h2>Braxen</h2>
+                    <p>Text om Braxen Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem.</p>
+                </div>
+                <div id="info6" class="infoBox">
+                    <h2>Lake</h2>
+                    <p>Text om lake Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="sida4" class="sida container-fluid">
+    <div class="container papper">
+        <div class="row">
+            <div class="col-12">
+                <h1>Binda fluga</h1>
+                <p>text som förklarar hur man binder flugor samt kontakt information till en grupp som binder flugor tillsammans Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna massa, consequat quis nisl at, dignissim ultrices tellus. Donec aliquam, velit nec cursus eleifend, arcu turpis auctor leo, nec sodales ligula orci sit amet sapien. Aenean at urna sed nisi ultricies finibus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce auctor velit nec nisl faucibus sollicitudin. Nam pretium, dolor ac porta semper, enim justo suscipit est, ut consequat leo est sed purus. Sed eleifend porttitor urna nec hendrerit. Fusce ullamcorper nisi sed sapien ultricies, sagittis commodo neque bibendum. Donec molestie viverra congue. Suspendisse euismod eros in eros rhoncus rutrum. Donec ut nisi lorem. </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="sida5" class="sida container-fluid">
+    <div class="container papper">
+        <div class="row">
+            <div class="col-12">
+                <h1>Licenser</h1>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <img src="Bilder/65_cm_lange_snoekbaars_klippt.png" class="card-img-top" alt="bild på gös">
+                <div class="card-body">
+                    <h5 class="card-title">Gösbilden på sidan Mjörn's fiskar</h5>
+                    <p class="card-text"> är en redigerad version av: <a href="https://www.flickr.com/photos/27429469@N00/2760161086">"65 cm lange snoekbaars"</a> av <a href="https://www.flickr.com/photos/27429469@N00">BioGeek</a> med <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/?ref=ccsearch&atype=rich">CC BY-NC-SA 2.0</a> licens.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <img src="Bilder/Aborre_klippt.png" class="card-img-top" alt="bild på Aborre">
+                <div class="card-body">
+                    <h5 class="card-title">Aborrebilden på sidan Mjörn's fiskar</h5>
+                    <p class="card-text"> är en redigerad version av: <a href="https://www.flickr.com/photos/61021753@N02/5985046516">"n5_w1150"</a> av <a href="https://www.flickr.com/photos/27429469@N00">BioDivLibrary </a> under <a href="https://creativecommons.org/publicdomain/mark/1.0/?ref=ccsearch&atype=rich">public domain</a>.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <img src="Bilder/6oz_Roach_best_of_the_day_klippt.png" class="card-img-top" alt="bild på gös">
+                <div class="card-body">
+                    <h5 class="card-title">Mörtbilden på sidan Mjörn's fiskar</h5>
+                    <p class="card-text"> är en redigerad version av: <a href="https://www.flickr.com/photos/12708857@N00/4018149897">"6oz? Roach, best of the day"</a> av <a href="https://www.flickr.com/photos/12708857@N00">zimpenfish</a> med <a href="https://creativecommons.org/licenses/by/2.0/?ref=ccsearch&atype=rich">CC BY 2.0</a> licens.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <img src="Bilder/Monsterpike_klippt.png" class="card-img-top" alt="bild på gös">
+                <div class="card-body">
+                    <h5 class="card-title">Gäddabilden på sidan Mjörn's fiskar</h5>
+                    <p class="card-text"> är en redigerad version av: <a href="https://www.flickr.com/photos/29778206@N04/3057860736">"Monster Pike"</a> av <a href="https://www.flickr.com/photos/29778206@N04">RTD Photography</a> med <a href="https://creativecommons.org/licenses/by-sa/2.0/?ref=ccsearch&atype=rich">CC BY-SA 2.0</a> licens.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <img src="Bilder/Fresh_Bream_klippt.png" class="card-img-top" alt="bild på gös">
+                <div class="card-body">
+                    <h5 class="card-title">Braxenbilden på sidan Mjörn's fiskar</h5>
+                    <p class="card-text"> är en redigerad version av: <a href="https://www.flickr.com/photos/83955435@N00/9687575">"Fresh Bream"</a> av <a href="https://www.flickr.com/photos/83955435@N00">Old Shoe Woman</a> med <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/?ref=ccsearch&atype=rich">CC BY-NC-SA 2.0</a> licens.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <img src="Bilder/burbot_klippt.png" class="card-img-top" alt="bild på lake">
+                <div class="card-body">
+                    <h5 class="card-title">Lakebilden på sidan Mjörn's fiskar</h5>
+                    <p class="card-text"> är en redigerad version av: <a href="https://www.flickr.com/photos/43788330@N05/8741584046">"Burbot"</a> av <a href="https://www.flickr.com/photos/43788330@N05">NOAA Great Lakes Environmental Research Laboratory</a> med <a href="https://creativecommons.org/licenses/by-sa/2.0/?ref=ccsearch&atype=rich">CC BY-SA 2.0</a> licens.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Rubrikerna på hemsidan</h5>
+                    <p class="card-text"> är av fonten <a href="https://fonts.google.com/specimen/Oswald?preview.text_type=custom">Oswald</a> av <a href="https://www.instagram.com/explore/tags/sansoxygen/">Vernon Adams</a>,Kalapi Gajjar och Cyreal med <a href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL">Open Font</a> licens.</p>
+                </div>
+            </div>
+            <div class="card col-xs-12 col-sm-6 col-md-3 mx-auto">
+                <div class="card-body">
+                    <h5 class="card-title">Övrig text</h5>
+                    <p class="card-text"> är av fonten <a href="https://fonts.google.com/specimen/Lato?preview.text_type=custom">Lato</a> av Łukasz Dziedzic med <a href="https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL">Open Font</a> licens.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bottom" class="row primary">
+    <button id="temaKnapp" class="col-4 btn mx-auto" onclick="Tema();">
+        <svg id="temaBild" width="50px" viewBox="-250 -250 500 500">
+            <mask id="sol">
+                <rect class="sne" x="-125" y="-125" width="250" height="250" fill="#FFFFFF"/>
+                <rect x="-125" y="-125" width="250" height="250" fill="#FFFFFF"/>
+                <circle cx="0" cy="0" r="140" fill="#000000" />
+                <circle cx="0" cy="0" r="110" fill="#FFFFFF" />
+            </mask>
+            <mask id="mane">
+                <circle cx="0" cy="0" r="160" fill="#FFFFFF" />
+                <circle cx="-100" cy="0" r="135" fill="#000000" />
+            </mask>
+            <rect id="temaSvg" class="secondarySVG" x="-250" y="-250" width="500" height="500" mask="url(#mane)" fill="#444444" />
+        </svg>
+    </button>
+</div>
+</body>
+</html>
