@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     public void showExternalWebPage(){
         // TODO: Add your code for showing external web page here
         WebView myWebView = findViewById(R.id.my_webview);
-        myWebView.setWebViewClient(new WebViewClient());
-        myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.loadUrl("https://www.google.com/");
 
     }
@@ -31,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     public void showInternalWebPage(){
         // TODO: Add your code for showing internal web page here
         WebView myWebView = findViewById(R.id.my_webview);
-        myWebView.setWebViewClient(new WebViewClient());
-        myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.loadUrl("file:///android_asset/Example.html");
     }
 
@@ -41,8 +37,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        setSupportActionBar(toolbar);
+        WebView myWebView = findViewById(R.id.my_webview);
+        myWebView.setWebViewClient(new WebViewClient());
+        myWebView.getSettings().setJavaScriptEnabled(true);
 
         /*
         * Rename your App. Tip: Values->Strings
