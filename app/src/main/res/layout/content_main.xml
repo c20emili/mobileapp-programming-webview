@@ -11,7 +11,7 @@
         android:id="@+id/my_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="190dp"
-        tools:layout_editor_absoluteY="287dp" />
+        tools:layout_editor_absoluteX="-173dp"
+        tools:layout_editor_absoluteY="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
