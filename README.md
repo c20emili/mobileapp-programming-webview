@@ -1,42 +1,86 @@
 
 # Rapport
 
-**Skriv din rapport här!**
-
-_Du kan ta bort all text som finns sedan tidigare_.
-
-## Följande grundsyn gäller dugga-svar:
-
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
+För att ändra namnet på appaen ändrades string elementet med attributet app_name i strings.xml.
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
+<resources>
+    <string name="app_name">Assignment 2</string>
+    <string name="action_external_web">External Web Page</string>
+    <string name="action_internal_web">Internal Web Page</string>
+</resources>
+```
+Sedan för att låta appen gå ut på nätet användes koden nedan i AndroidManifest för att ge tillåtelse.
+```
+    <uses-permission android:name="android.permission.INTERNET" />
+```
+efter det skapades ett webview element i content_main.xml med my_webview som id och lite kod som bestämmer positionering och storlek på elementet.
+```
+    <WebView
+        android:id="@+id/my_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+```
+resterande delar utförs i MainActivity.java där det först deklareras en privat medlems variabel av typen WebView med namnet myWebView i klassen MainActivity vilket gör att klassen WebView behöver importeras.
+```
+import android.webkit.WebView;
+    private WebView myWebView;
+```
+sen tilldelades myWebView värdet av id:et my_webview med hjälp av findbywebview i oncreate
+```
+        myWebView = findViewById(R.id.my_webview);
+```
+raden efter skapades en ny webviewclient för mywebview och WebViewClient importerades utanför MainActivity. 
+```
+import android.webkit.WebViewClient;
+        myWebView.setWebViewClient(new WebViewClient());
+```
+sedan i oncreate gjordes det möjligt att exekvera javascript genom att för myWebView få inställningarna och setJavaScriptEnabled till sant.
+```
+        myWebView.getSettings().setJavaScriptEnabled(true);
+```
+efter det skapades en asset folder med en mapp för bilder och en html fil.
+sedan användes funktionen loadUrl för att hämta den interna hemsidan för myWebView i funkionen showInternalWebPage och en extern hemsida i showExternalWebPage.
+```
+    public void showExternalWebPage(){
+        // TODO: Add your code for showing external web page here
+        myWebView.loadUrl("https://www.google.com/");
+
     }
-}
+
+    public void showInternalWebPage(){
+        // TODO: Add your code for showing internal web page here
+        myWebView.loadUrl("file:///android_asset/Example.html");
+    }
+```
+sist callades de funktionerna beroende på vad som klickas i onOptionsItemSelected
+```
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_external_web) {
+            showExternalWebPage();
+            Log.d("==>","Will display external web page");
+            return true;
+        }
+
+        if (id == R.id.action_internal_web) {
+            showInternalWebPage();
+            Log.d("==>","Will display internal web page");
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 ```
 
-Bilder läggs i samma mapp som markdown-filen.
-
-![](android.png)
-
-Läs gärna:
-
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+![](Externalscreenshot.png)
+![](Internalscreenshot.png)
